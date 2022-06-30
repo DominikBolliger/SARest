@@ -1,6 +1,6 @@
 <?php
 
-require("db.php");
+require("DataBaseConfig.php");
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');
 
