@@ -15,7 +15,5 @@ function response($status, $data)
 {
     header("HTTP/1.1 " . $status);
     $response = array_values($data);
-    foreach ($response as $box){
-        echo json_encode($box)."\n";
-    }
+    echo json_encode($response);
 }
