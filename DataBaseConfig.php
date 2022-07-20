@@ -24,10 +24,10 @@ class DataBaseConfig {
         $this->conn = null;
     }
 
-    public function selectAllBoxes()
+    public function selectBoxes($limit)
     {
         $boxList = array();
-        $statement = $this->conn->prepare("SELECT * FROM sa.box");
+        $statement = $this->conn->prepare("SELECT * FROM sa.box where order_id >= $limit");
         if($statement->execute())
         {
             while($row = $statement->fetch()) {
@@ -36,7 +36,8 @@ class DataBaseConfig {
                     'box_pos_x' => $row['box_pos_x'],
                     'box_pos_y' => $row['box_pos_y'],
                     'box_pos_z' => $row['box_pos_z'],
-                    'article_id' => $row['article_id']);
+                    'article_id' => $row['article_id'],
+                    'order_id' => $row['order_id']);
                 array_push($boxList, $box);
             }
             return $boxList;
@@ -46,7 +47,7 @@ class DataBaseConfig {
     public function selectAllOrders()
     {
         $boxList = array();
-        $statement = $this->conn->prepare("SELECT * FROM sa.orders");
+        $statement = $this->conn->prepare("SELECT * FROM sa.orders ORDER BY order_id DESC LIMIT 10");
         if($statement->execute())
         {
             while($row = $statement->fetch()) {
