@@ -31,11 +31,28 @@ class DataBaseConfig {
         if($statement->execute())
         {
             while($row = $statement->fetch()) {
-                $box = Array(   'box_id' => $row['box_id'],
+                $box = Array(
+                    'box_id' => $row['box_id'],
                     'box_pos_x' => $row['box_pos_x'],
                     'box_pos_y' => $row['box_pos_y'],
                     'box_pos_z' => $row['box_pos_z'],
-                    'fk_box_type_id' => $row['fk_box_type_id']);
+                    'article_id' => $row['article_id']);
+                array_push($boxList, $box);
+            }
+            return $boxList;
+        }
+    }
+
+    public function selectAllOrders()
+    {
+        $boxList = array();
+        $statement = $this->conn->prepare("SELECT * FROM sa.orders");
+        if($statement->execute())
+        {
+            while($row = $statement->fetch()) {
+                $box = Array(
+                    'order_id' => $row['order_id'],
+                    'date' => $row['date']);
                 array_push($boxList, $box);
             }
             return $boxList;
